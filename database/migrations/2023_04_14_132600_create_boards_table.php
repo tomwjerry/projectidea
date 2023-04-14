@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('local_id');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreignId('project_id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->unique(['local_id', 'project_id']);
         });
     }
 

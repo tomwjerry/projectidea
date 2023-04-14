@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('role_id');
             $table->foreignId('permission_id');
+            $table->unique(['role_id', 'permission_id']);
         });
     }
 

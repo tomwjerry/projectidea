@@ -17,7 +17,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->string('identification_name')->unique();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('image');
             $table->foreignId('created_by_user_id');
         });

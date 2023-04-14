@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('project_members', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('local_id');
             $table->timestamps();
             $table->foreignId('user_id');
             $table->foreignId('project_id');
             $table->foreignId('role_id');
+
+            $table->unique(['user_id', 'project_id']);
+            $table->unique(['local_id', 'project_id']);
         });
     }
 

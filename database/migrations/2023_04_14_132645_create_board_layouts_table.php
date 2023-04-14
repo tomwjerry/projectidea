@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('board_layouts', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('layout_position');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreignId('project_id')->nullable();
+            $table->foreignId('board_id')->nullable();
+            $table->foreignId('parent_layout_id')->nullable();
+            $table->string('name');
+            $table->string('description')->nullable();
         });
     }
 
