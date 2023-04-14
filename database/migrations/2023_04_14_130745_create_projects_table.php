@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('identification_name')->unique();
+            $table->string('name');
+            $table->string('description');
+            $table->string('image');
+            $table->foreignId('created_by_user_id');
         });
     }
 

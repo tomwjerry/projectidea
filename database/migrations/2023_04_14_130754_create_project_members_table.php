@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('project_members', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id');
+            $table->foreignId('project_id');
+            $table->foreignId('role_id');
         });
     }
 
