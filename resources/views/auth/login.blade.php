@@ -7,15 +7,15 @@
 
         <!-- Email Address -->
         <div>
-            <label for="email">{{ __('Email') }}</label>
-            <input id="email"
-                type="email" name="email" :value="old('email')"
+            <label for="username">{{ __('auth.username') }}</label>
+            <input id="username"
+                type="text" name="username" :value="old('username')"
                 required autofocus autocomplete="username">
         </div>
 
         <!-- Password -->
         <div>
-            <label for="password">{{ __('Password') }}</label>
+            <label for="password">{{ __('auth.password') }}</label>
 
             <input id="password"
                 type="password"
@@ -28,17 +28,17 @@
             <label for="remember_me">
                 <input id="remember_me" type="checkbox"
                     name="remember">
-                <span>{{ __('Remember me') }}</span>
+                <span>{{ __('auth.remember_me') }}</span>
             </label>
         </div>
 
         <div>
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+                <a href="{{ route('password.request') }}">{{ __('auth.forgot_credentials') }}</a>
             @endif
 
             <button type="submit">
-                {{ __('Log in') }}
+                {{ __('auth.login') }}
             </button>
         </div>
     </form>

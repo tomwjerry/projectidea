@@ -10,6 +10,14 @@
             <p class="mt-2">{{ implode(', ', $errors->get('name')) }}</p>
         </div>
 
+        <!-- Username -->
+        <div class="mt-4">
+            <label for="username">{{ __('auth.username') }}</label>
+            <input id="username" class="block mt-1 w-full" type="username"
+                name="username" :value="old('username')" required autocomplete="off">
+            <p class="mt-2">{{ implode(', ', $errors->get('username')) }}</p>
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <label for="email">{{ __('Email') }}</label>
