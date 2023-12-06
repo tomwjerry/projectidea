@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
+        Schema::create('project_layouts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('local_id');
+            $table->tinyInteger('layout_position');
+            $table->tinyInteger('lane');
+            $table->boolean('defines_lane');
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
