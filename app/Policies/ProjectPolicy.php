@@ -3,7 +3,10 @@ namespace App\Policies;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Models\ProjectMember;
+use App\Models\GlobalPermission;
 use App\Services\ProjectsService;
+use App\Services\Permission;
 use Illuminate\Auth\Access\Response;
 
 class ProjectPolicy
@@ -14,6 +17,8 @@ class ProjectPolicy
     public function viewAny(User $user): bool
     {
         //
+        return count(ProjectsService::projectsByPermission(
+            Permission::ProjectList->value)) > 0;
     }
 
     /**
@@ -22,6 +27,11 @@ class ProjectPolicy
     public function view(User $user, Project $project): bool
     {
         //
+        return ProjectsService:userCanInProject(
+            $user->id,
+            $project->id,
+            Permission::ProjectView->value
+        );
     }
 
     /**
@@ -30,7 +40,11 @@ class ProjectPolicy
     public function create(User $user): bool
     {
         //
+        $canCreate = GlobalPermission::where('user_id', $user->id)
+            ->where('permission', Permission::ProjectCreate->value)
+            ->first();
         
+        return !empty($canCreate);
     }
 
     /**
@@ -39,6 +53,11 @@ class ProjectPolicy
     public function update(User $user, Project $project): bool
     {
         //
+        return ProjectsService:userCanInProject(
+            $user->id,
+            $project->id,
+            Permission::ProjectEdit->value
+        );
     }
 
     /**
@@ -47,6 +66,11 @@ class ProjectPolicy
     public function delete(User $user, Project $project): bool
     {
         //
+        return ProjectsService:userCanInProject(
+            $user->id,
+            $project->id,
+            Permission::ProjectDelete->value
+        );
     }
 
     /**

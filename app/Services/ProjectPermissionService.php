@@ -44,6 +44,24 @@ class ProjectPermissionService
         return false;
     }
 
+    public static projectsByPermission($userId, $permission)
+    {
+        $allPerms = $this->getAllProjectPermission();
+        if (!empty($allPerms) && count($allPerms) > 0)
+        {
+            $projsWithPerm = [];
+            foreach ($allPerms as $projectId => $perms)
+            {
+                if (!empty($perms[$permission]))
+                {
+                    $projsWithPerm[] = $projectId;
+                }
+            }
+        }
+        
+        return [];
+    }
+
     public static getProjectPermission($userId, $projectId)
     {
         $allPerms = $this->getAllProjectPermission();
@@ -71,7 +89,7 @@ class ProjectPermissionService
                     'project_members.project_id'
                 )->innerJoin(
                     'project_members',
-                    function($jq) use($user)
+                    function($jq) use($member)
                     {
                         $jq->on('project_members.role_id', 'role_permission.role_id')
                             ->on('project_members.user_id', $userId);
