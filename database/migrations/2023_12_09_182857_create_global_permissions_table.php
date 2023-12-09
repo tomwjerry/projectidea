@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('global_permissions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->softDeletes();
+            $table->foreignId('user_id');
+            $table->foreignId('permission_id');
             $table->foreignId('organization_id');
-            $table->foreignId('parent_project_id')->nullable();
-            $table->string('identification_name')->unique();
-            $table->string('name');
-            $table->text('description');
-            $table->string('image');
-            $table->foreignId('created_by_user_id');
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('global_permissions');
     }
 };
