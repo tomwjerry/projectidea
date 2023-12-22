@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('local_id');
             $table->timestamps();
+            $teble->boolean('project_admin_default');
             $table->foreignId('organization_id');
             $table->string('name');
             $table->string('description')->nullable();

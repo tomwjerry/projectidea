@@ -76,7 +76,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function postEditGlobalPermissions(Request $req)
+    public function postEditRolePermissions(Request $req)
     {
         Gate::authorize('superadmin');
         $role = null;
@@ -106,7 +106,7 @@ class AdminController extends Controller
         {
             if (empty($alredyPermission[$permission]))
             {
-                $rp = new RolePermisson;
+                $rp = new RolePermission;
                 $rp->organization_id = 0;
                 $rp->role_id = $role->id;
                 $rp->permission_id = $permission;
@@ -125,15 +125,16 @@ class AdminController extends Controller
                 $permission->delete();  
             }
         }
+
+        return redirect()->route('admin.view_role');
     }
 
-    public function postEditRolePermissions(Request $req)
+    public function postEditGlobalPermissions(Request $req)
     {
         Gate::authorize('superadmin');
 
         foreach ($req->input('permission') as $users)
         {
-            $userId = $users['entry'];
             $existingEntries = GlobalPermission::where('global_permissions.user_id')
                 ->get();
             
@@ -151,7 +152,7 @@ class AdminController extends Controller
                 Permission::ProjectCreate->value)
             {
                 $newEntry = new GlobalPermission;
-                $newEntry->permission_id = Permission::ProjectCreate->value;
+                $newEntry->permission_id = $perm;
                 $newEntry->user_id = $userId;
                 $newEntry->organization_id = 0;
                 $newEntry->save();
@@ -161,5 +162,7 @@ class AdminController extends Controller
                 $alreadyCanCreate->delete();
             }
         }
+
+        return redirect()->route('admin.view_glob_perm');
     }
 }

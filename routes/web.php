@@ -28,9 +28,9 @@ Route::middleware('auth')->group(function ()
         ->name('admin.view_glob_perm');
     Route::get('/admin/role', [AdminController::class, 'viewEditRolePermissions'])
         ->name('admin.view_role');
-    Route::post('/admin/globalpermission', [AdminController::class, 'viewEditGlobalPermissions'])
+    Route::post('/admin/globalpermission', [AdminController::class, 'postEditGlobalPermissions'])
         ->name('admin.post_glob_perm');
-    Route::post('/admin/role', [AdminController::class, 'viewEditRolePermissions'])
+    Route::post('/admin/role', [AdminController::class, 'postEditRolePermissions'])
         ->name('admin.post_role');
 
     Route::get('/project/new', [ProjectController::class, 'viewEdit'])
