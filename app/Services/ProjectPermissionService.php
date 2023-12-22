@@ -4,33 +4,6 @@ namespace App\Services;
 use Illuminate\Support\Facades\Cache;
 use App\Models\RolePermission;
 
-enum Permission: int
-{
-    case ProjectList = 1;
-    case ProjectRead = 2;
-    case ProjectCreate = 3;
-    case ProjectEdit = 3;
-    case ProjectDelete = 4;
-
-    case MemberList = 21;
-    case MemberRead = 22;
-    case MemberCreate = 23;
-    case MemberEdit = 23;
-    case MemberDelete = 24;
-
-    case IssueList = 41;
-    case IssueRead = 42;
-    case IssueCreate = 43;
-    case IssueEdit = 43;
-    case IssueDelete = 44;
-
-    case DashboardList = 101;
-    case DashboardRead = 102;
-    case DashboardCreate = 103;
-    case DashboardEdit = 103;
-    case DashboardDelete = 104;
-}
-
 class ProjectPermissionService
 {
     public static userCanInProject($userId, $projectId, $permission)

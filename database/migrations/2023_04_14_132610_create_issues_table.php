@@ -17,8 +17,12 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
+            $table->foreignId('board_id');
+            $table->boolean('is_epic');
+            $table->foreignId('epic_id')->nullable();
             $table->tinyInteger('prioritization');
             $table->tinyInteger('progress');
+            $table->string('color')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('estimation_min', 6, 2)->nullable();

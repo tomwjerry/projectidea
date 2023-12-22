@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <p>{{ session('status') }}</p>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('postlogin') }}">
         @csrf
 
         <!-- Email Address -->

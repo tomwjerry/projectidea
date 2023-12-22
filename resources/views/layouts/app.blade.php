@@ -9,8 +9,8 @@
 
         <!-- Fonts -->
 
-        <!-- Scripts -->
-        @vite(['resources/js/app.js'])
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
     </head>
     <body>
         <div class="nav-wrap">

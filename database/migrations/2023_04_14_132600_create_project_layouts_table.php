@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_layouts', function (Blueprint $table) {
+        Schema::create('board_layouts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('local_id');
             $table->tinyInteger('layout_position');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
+            $table->foreignId('board_id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->unique(['local_id', 'project_id']);
