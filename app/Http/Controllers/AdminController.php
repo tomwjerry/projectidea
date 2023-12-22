@@ -18,7 +18,7 @@ class AdminController extends Controller
         Gate::authorize('superadmin');
 
         $usersNPermissions = User::select(
-            'user.name',
+            'users.name',
             'users.id',
             'global_permissions.permission_id'
             )
@@ -41,12 +41,13 @@ class AdminController extends Controller
 
         // Roles
         $roles = Role::orderBy('name', 'ASC')
+            ->orderBy('id', 'ASC')
             ->get()
             ->toArray();
         $roleMap = [];
         foreach ($roles as $rolekey => $role)
         {
-            $role['permissions'] = [];
+            $roles[$rolekey]['permissions'] = [];
             $roleMap[$role['id']] = $rolekey;
         }
 
@@ -59,7 +60,7 @@ class AdminController extends Controller
         // Map roles to permissions
         foreach ($permissions as $perm)
         {
-            if (empty($roleMap[$perm['role_id']]))
+            if (!isset($roleMap[$perm['role_id']]))
             {
                 continue;
             }
@@ -80,7 +81,7 @@ class AdminController extends Controller
     {
         Gate::authorize('superadmin');
         $role = null;
-        $alredyPermission = [];
+        $alreadyPermission = [];
 
         if ($req->has('role_id') && !empty($req->input('role_id')))
         {
@@ -90,7 +91,7 @@ class AdminController extends Controller
                 ->get();
             foreach ($permissions as $perm)
             {
-                $alredyPermission[$perm->permission_id] = $perm;
+                $alreadyPermission[$perm->permission_id] = $perm;
             }
         }
         else
@@ -102,23 +103,26 @@ class AdminController extends Controller
         $role->description = $req->input('role_description');
         $role->save();
 
-        foreach ($req->input('permission') as $permission)
+        if ($req->has('permission') && !empty($req->input('permission')))
         {
-            if (empty($alredyPermission[$permission]))
+            foreach ($req->input('permission') as $permission)
             {
-                $rp = new RolePermission;
-                $rp->organization_id = 0;
-                $rp->role_id = $role->id;
-                $rp->permission_id = $permission;
-                $rp->save();
-            }
-            else
-            {
-                $alredyPermission[$permission] = null;
+                if (empty($alreadyPermission[$permission]))
+                {
+                    $rp = new RolePermission;
+                    $rp->organization_id = 0;
+                    $rp->role_id = $role->id;
+                    $rp->permission_id = $permission;
+                    $rp->save();
+                }
+                else
+                {
+                    $alreadyPermission[$permission] = null;
+                }
             }
         }
 
-        foreach ($alredyPermission as $permission)
+        foreach ($alreadyPermission as $permission)
         {
             if (!empty($permission))
             {
@@ -126,7 +130,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('admin.view_role');
+        //return redirect()->route('admin.view_role');
     }
 
     public function postEditGlobalPermissions(Request $req)

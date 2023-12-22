@@ -23,12 +23,45 @@
         </div>
 
         <h2>{{ __('admin.permissions') }}</h2>
-        @foreach ($permissions as $permission)
-            <div>
-                <label><input type="checkbox" name="permission[{{ $permission->value }}]"
-                    value="{{ $permission->value }}"> {{ $permission->name }}</label>
-            </div>
-        @endforeach
+        <div id="permissionList">
+            @foreach ($permissions as $permission)
+                <div>
+                    <label><input type="checkbox" name="permission[{{ $permission->value }}]"
+                        value="{{ $permission->value }}"> {{ $permission->name }}</label>
+                </div>
+            @endforeach
+        </div>
         <button type="submit" class="btn primary">{{ __('common.save') }}</button>
     </form>
+
+    <x-slot:script>
+        <script>
+            const rolesPermissions = @json($roles);
+
+            const roleSel = document.getElementById('role_id');
+            roleSel.addEventListener('change', function() {
+                const findRolePermssion = rolesPermissions.find(role => role.id == roleSel.value);
+                const permissonList = document.querySelectorAll('#permissionList input[type="checkbox"]');
+                for (let cb of permissonList) {
+                    cb.checked = false;
+                }
+
+                if (findRolePermssion) {
+                    document.getElementById('role_name').value = findRolePermssion.name;
+                    document.getElementById('role_description').value = findRolePermssion.description;
+
+                    if (findRolePermssion.permissions &&
+                        findRolePermssion.permissions.length) {
+                        for (let perm of findRolePermssion.permissions) {
+                            document.querySelector('#permissionList input[type="checkbox"][value="' +
+                                perm.permission_id + '"]').checked = true;
+                        }
+                    }
+                } else {
+                    document.getElementById('role_name').value = '';
+                    document.getElementById('role_description').value = '';
+                }
+            });
+        </script>
+    </x-slot>
 </x-app-layout>
