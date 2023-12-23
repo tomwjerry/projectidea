@@ -1,7 +1,7 @@
 <nav class="">
     <div>
         <div class="">
-            <a href="route('dashboard')">
+            <a href="{{ route('dashboard') }}">
                 {{ __('Dashboard') }}
             </a>
         </div>

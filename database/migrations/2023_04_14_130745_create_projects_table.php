@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('parent_project_id')->nullable();
             $table->string('identification_name')->unique();
             $table->string('name');
-            $table->text('description');
-            $table->string('image');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('created_by_user_id');
         });
     }

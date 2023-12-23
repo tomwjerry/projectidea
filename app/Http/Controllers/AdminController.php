@@ -137,9 +137,9 @@ class AdminController extends Controller
     {
         Gate::authorize('superadmin');
 
-        foreach ($req->input('permission') as $users)
+        foreach ($req->input('permission') as $user)
         {
-            $existingEntries = GlobalPermission::where('global_permissions.user_id')
+            $existingEntries = GlobalPermission::where('global_permissions.user_id', $user['entry'])
                 ->get();
             
             $alreadyCanCreate = false;
@@ -152,14 +152,16 @@ class AdminController extends Controller
                 }
             }
 
-            if ($alreadyCanCreate == false && $users['project_create'] ==
+            if ($alreadyCanCreate == false && !empty($user['project_create']) &&
+                $user['project_create'] ==
                 Permission::ProjectCreate->value)
             {
                 $newEntry = new GlobalPermission;
-                $newEntry->permission_id = $perm;
-                $newEntry->user_id = $userId;
+                $newEntry->permission_id = Permission::ProjectCreate->value;
+                $newEntry->user_id = $user['entry'];
                 $newEntry->organization_id = 0;
                 $newEntry->save();
+                echo 'saved';
             }
             else if ($alreadyCanCreate != false)
             {
@@ -167,6 +169,6 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('admin.view_glob_perm');
+        //return redirect()->route('admin.view_glob_perm');
     }
 }

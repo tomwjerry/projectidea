@@ -6,9 +6,9 @@ use App\Models\RolePermission;
 
 class ProjectPermissionService
 {
-    public static userCanInProject($userId, $projectId, $permission)
+    public static function userCanInProject($userId, $projectId, $permission)
     {
-        $projPerms = getProjectPermission($userId, $projectId);
+        $projPerms = self::getProjectPermission($userId, $projectId);
         if (!empty($projPerms[$permission]))
         {
             return true;
@@ -17,9 +17,9 @@ class ProjectPermissionService
         return false;
     }
 
-    public static projectsByPermission($userId, $permission)
+    public static function projectsByPermission($userId, $permission)
     {
-        $allPerms = $this->getAllProjectPermission();
+        $allPerms = self::getAllProjectPermissions($userId);
         if (!empty($allPerms) && count($allPerms) > 0)
         {
             $projsWithPerm = [];
@@ -30,14 +30,16 @@ class ProjectPermissionService
                     $projsWithPerm[] = $projectId;
                 }
             }
+
+            return $projsWithPerm;
         }
         
         return [];
     }
 
-    public static getProjectPermission($userId, $projectId)
+    public static function getProjectPermission($userId, $projectId)
     {
-        $allPerms = $this->getAllProjectPermission();
+        $allPerms = self::getAllProjectPermissions($userId);
         if (!empty($allPerms[$projectId]))
         {
             return $allPerms[$projectId];
@@ -46,30 +48,30 @@ class ProjectPermissionService
         return [];
     }
 
-    public static getAllProjectPermissions($userId)
+    public static function getAllProjectPermissions($userId)
     {
         $cacheKey = 'project_perm_' . $userId;
         $projPermMap = [];
 
-        if (Cache::has($cacheKey))
+        /*if (Cache::has($cacheKey))
         {
             $projPermMap = json_decode(Cache::get($cacheKey));
         }
         else
-        {
+        {*/
             $permissions = RolePermission::select(
-                    'role_permission.permission_id',
+                    'role_permissions.permission_id',
                     'project_members.project_id'
-                )->innerJoin(
+                )->join(
                     'project_members',
-                    function($jq) use($member)
+                    function($jq) use($userId)
                     {
-                        $jq->on('project_members.role_id', 'role_permission.role_id')
-                            ->on('project_members.user_id', $userId);
+                        $jq->on('project_members.role_id', 'role_permissions.role_id')
+                            ->where('project_members.user_id', $userId);
                     }
                 )
                 ->orderBy('project_members.project_id', 'ASC')
-                ->orderBy('role_permission.permission_id', 'ASC')
+                ->orderBy('role_permissions.permission_id', 'ASC')
                 ->get();
             
             $projPermMap = [];
@@ -84,7 +86,7 @@ class ProjectPermissionService
             }
             
             Cache::put($cacheKey, json_encode($projPermMap), 10);
-        }
+        //}
 
         return $projPermMap;
     }

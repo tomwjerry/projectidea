@@ -1,15 +1,15 @@
 <x-app-layout>
-    <form action="" method="{{ route('post_edit_project') }}">
+    <form action="{{ route('admin.post_glob_perm') }}" method="POST">
         @csrf
 
         <p>Check project creators here</p>
 
-        @foreach ($userList as $user):
+        @foreach ($userperms as $user)
             <div>
                 <input type="hidden" name="permission[{{ $user->id }}][entry]"
-                    value="{{ $user->id }}">
+                    value="{{ $user->id }}"{{ empty($user->permission_id) ? '' : ' checked' }}>
                 <label><input type="checkbox"
-                    name="permission[{{ $user->id }}][project_create]" value="1"
+                    name="permission[{{ $user->id }}][project_create]" value="3"
                     >{{ $user->name }}</label>
             </div>
         @endforeach

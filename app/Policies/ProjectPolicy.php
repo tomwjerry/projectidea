@@ -41,7 +41,7 @@ class ProjectPolicy
     {
         //
         $canCreate = GlobalPermission::where('user_id', $user->id)
-            ->where('permission', Permission::ProjectCreate->value)
+            ->where('permission_id', Permission::ProjectCreate->value)
             ->first();
         
         return !empty($canCreate);
