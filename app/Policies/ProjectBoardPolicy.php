@@ -2,6 +2,7 @@
 namespace App\Policies;
 
 use App\Models\Project;
+use App\Models\ProjectBoard;
 use App\Models\User;
 use App\Models\ProjectMember;
 use App\Models\GlobalPermission;
@@ -9,67 +10,69 @@ use App\Services\ProjectPermissionService;
 use App\Services\Permission;
 use Illuminate\Auth\Access\Response;
 
-class ProjectPolicy
+class ProjectBoardPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, $projectId): bool
     {
         //
-        return count(ProjectPermissionService::projectsByPermission(
-            Permission::ProjectList->value)) > 0;
+        return ProjectPermissionService::userCanInProject(
+            $user->id,
+            $project_id,
+            Permission::ProjectBoardList->value
+        );
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Project $project): bool
+    public function view(User $user, ProjectBoard $board): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $project->id,
-            Permission::ProjectRead->value
+            $board->project_id,
+            Permission::ProjectBoardRead->value
         );
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
-    {
-        //
-        $canCreate = GlobalPermission::where('user_id', $user->id)
-            ->where('permission_id', Permission::ProjectCreate->value)
-            ->first();
-        
-        return !empty($canCreate);
+    public function create(User $user, $projectId): bool
+    {   
+        return ProjectPermissionService::userCanInProject(
+            $user->id,
+            $projectId,
+            Permission::ProjectBoardCreate->value
+        );
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Project $project): bool
+    public function update(User $user, ProjectBoard $board): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $project->id,
-            Permission::ProjectEdit->value
+            $board->project_id,
+            Permission::ProjectBoardEdit->value
         );
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Project $project): bool
+    public function delete(User $user, ProjectBoard $board): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $project->id,
-            Permission::ProjectDelete->value
+            $board->project_id,
+            Permission::ProjectBoardDelete->value
         );
     }
 

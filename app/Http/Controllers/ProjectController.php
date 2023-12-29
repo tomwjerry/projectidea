@@ -20,7 +20,7 @@ class ProjectController extends Controller
         );
         $allProjects = Project::whereIn('id', $projectIds)->get();
 
-        return view('project.list', ['projects' => $allProjects]);
+        return view('project.project_list', ['projects' => $allProjects]);
     }
 
     public function viewProject($projectname)
@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'identification_name', $projectname)->first();
         $this->authorize('view', $project);
 
-        return view('project.view', ['project' => $project]);
+        return view('project.project_view', ['project' => $project]);
     }
 
     public function viewEdit($projectname = null)

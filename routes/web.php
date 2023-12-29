@@ -51,14 +51,15 @@ Route::middleware('auth')->group(function ()
     Route::post('/project', [ProjectController::class, 'postEdit'])
         ->name('project.post_edit');
 
-    Route::get('/{projectname}/board/new', [BoardController::class, 'viewEdit'])
+    Route::get('/{projectname}/board/new', [BoardController::class, 'viewBoard'])
         ->name('board.new');
-    Route::get('/{projectname}/{boardname}/edit', [BoardController::class, 'viewEdit'])
-        ->name('board.edit');
-    Route::get('/{projectname}/{boardname}/layout', [
-            BoardLayoutController::class, 'viewEdit'
-        ])
-        ->name('boardlayout.view');
+    Route::get('/{projectname}/{boardname}', [BoardController::class, 'viewBoard'])
+        ->name('board.view');
+    Route::post('/board', [BoardController::class, 'postEdit'])
+        ->name('board.post_edit');
+    
+    Route::post('/boardlayout', [BoardLayoutController::class, 'postEdit'])
+        ->name('boardlayout.post_edit');
 });
 
 require __DIR__.'/auth.php';
