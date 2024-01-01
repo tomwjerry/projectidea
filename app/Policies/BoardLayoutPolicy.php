@@ -9,7 +9,7 @@ use App\Services\ProjectPermissionService;
 use App\Services\Permission;
 use Illuminate\Auth\Access\Response;
 
-class ProjectBoardPolicy
+class BoardLayoutPolicy
 {
     /**
      * Determine whether the user can view any models.

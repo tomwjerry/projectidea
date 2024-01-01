@@ -5,6 +5,9 @@ use App\Models\Project;
 use App\Models\ProjectBoard;
 use App\Models\BoardLayout;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class BoardLayoutController extends Controller
 {
     public function postEdit(Request $req)
@@ -14,13 +17,13 @@ class BoardLayoutController extends Controller
             ->first();
         $board = ProjectBoard::where(
             'identification_name', $req->input('board_identification_name'))
-            ->where('project_id', $board->project_id)
+            ->where('project_id', $project->id)
             ->first();
         
         $layout = null;
         if ($req->has('layout_localid') && !empty($req->input('layout_localid')))
         {
-            $layout = ProjectBoard::where(
+            $layout = BoardLayout::where(
                 'localid', $req->input('layout_localid')
                 )
                 ->where('project_id', $project->id)
@@ -30,12 +33,12 @@ class BoardLayoutController extends Controller
         }
         else
         {
-            $layout = new ProjectBoard;
-            $layout->local_id = ProjectBoard::where(
+            $layout = new BoardLayout;
+            $layout->local_id = BoardLayout::where(
                 'project_id', $project->id)
                 ->where('board_id', $board->id)
                 ->max('local_id') + 1;
-            $layout->layout_position = ProjectBoard::where(
+            $layout->layout_position = BoardLayout::where(
                 'project_id', $project->id)
                 ->where('board_id', $board->id)
                 ->max('layout_position') + 1; // Specific to lane
@@ -43,7 +46,7 @@ class BoardLayoutController extends Controller
             $layout->defines_lane = 0;
             $layout->project_id = $project->id;
             $layout->board_id = $board->id;
-            $this->authorize('create', [ProjectBoard::class, $project->id]);
+            $this->authorize('create', [BoardLayout::class, $project->id]);
         }
 
         $layout->name = $req->input('layout_name');

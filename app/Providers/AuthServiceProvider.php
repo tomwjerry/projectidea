@@ -20,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Project::class => ProjectPolicy::class,
-        ProjectBoard::class => ProjectBoardPolicy::class
+        ProjectBoard::class => ProjectBoardPolicy::class,
+        BoardLayout::class => BoardLayoutPolicy::class
     ];
 
     /**
