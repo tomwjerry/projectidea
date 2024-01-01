@@ -5,6 +5,8 @@
                 <form id="board_form" action="{{ route('board.post_edit') }}"
                     method="POST">
                     @csrf
+                    <input type="hidden" name="project_identification_name"
+                        value="{{ $project->identification_name }}">
                     <div>
                         <label for="board_name">{{ __('board.board_name') }}</label>
                         <input type="text" class="input"
@@ -24,39 +26,39 @@
                 <div>{{ $board->description }}</div>
             </div>
         </div>
-    </div>
 
-    <div class="board_layout">
-        @foreach ($layoutItemList as $layoutIndex => $layoutItem)
-            <div>
-				<div id="layout_title_field">
-                    <div class="edit">
-                    <form id="layout_form" action="{{ route('boardlayout.post_edit') }}"
-                        method="POST">
-                        @csrf
-                        <div>
-                            <label for="layout_name_{{  $layoutIndex }}">{{ __('board.layout_name') }}</label>
-                            <input type="text" class="input"
-                                name="layout_name" id="layout_name_{{  $layoutIndex }}"
-                                value="{{ $layoutItem->name }}">
+        <div class="board_layout">
+            @foreach ($layoutItemList as $layoutIndex => $layoutItem)
+                <div>
+                    <div id="layout_title_field">
+                        <div class="edit">
+                        <form id="layout_form" action="{{ route('boardlayout.post_edit') }}"
+                            method="POST">
+                            @csrf
+                            <div>
+                                <label for="layout_name_{{  $layoutIndex }}">{{ __('board.layout_name') }}</label>
+                                <input type="text" class="input"
+                                    name="layout_name" id="layout_name_{{  $layoutIndex }}"
+                                    value="{{ $layoutItem->name }}">
+                            </div>
+                            <div>
+                                <label for="layout_description">{{ __('board.layout_description') }}</label>
+                                <textarea class="input"
+                                    name="layout_description_{{  $layoutIndex }}"
+                                    id="layout_description_{{  $layoutIndex }}">{{ $layoutItem->description }}</textarea>
+                            </div>
+                            <button type="submit" class="btn">{{ __('common.save') }}</button>
+                        </form>
                         </div>
-                        <div>
-                            <label for="layout_description">{{ __('board.layout_description') }}</label>
-                            <textarea class="input"
-                                name="layout_description_{{  $layoutIndex }}"
-                                id="layout_description_{{  $layoutIndex }}">{{ $layoutItem->description }}</textarea>
+                        <div class="view">
+                            <h1>{{ $layoutItem->name }}</h1>
+                            @if ($layoutItem->is_new):
+                                <button type="button" class="btn">+</button>
+                            @endif
                         </div>
-                        <button type="submit" class="btn">{{ __('common.save') }}</button>
-                    </form>
                     </div>
-                    <div class="view">
-                        <h1>{{ $layoutItem->name }}</h1>
-                        @if ($layoutItem->is_new):
-                            <button type="button" class="btn">+</button>
-                        @endif
-                    </div>
-				</div>
-            </div>
-        @endforeach
+                </div>
+            @endforeach
+        </div>
     </div>
 </x-app-layout>

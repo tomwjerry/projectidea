@@ -3,11 +3,9 @@ namespace App\Policies;
 
 use App\Models\Project;
 use App\Models\User;
-use App\Models\ProjectMember;
 use App\Models\GlobalPermission;
 use App\Services\ProjectPermissionService;
 use App\Services\Permission;
-use Illuminate\Auth\Access\Response;
 
 class ProjectPolicy
 {

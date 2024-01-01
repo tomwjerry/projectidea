@@ -25,15 +25,9 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('estimation_min', 6, 2)->nullable();
-            $table->decimal('estimation_max', 6, 2)->nullable();
-            $table->decimal('actual_points', 6, 2)->nullable();
-            $table->decimal('current_work', 6, 2)->nullable();
-            $table->dateTime('planned_start')->nullable();
-            $table->dateTime('actual_start')->nullable();
-            $table->dateTime('planned_final')->nullable();
-            $table->dateTime('actual_final')->nullable();
-            $table->text('retrospective')->nullable();
+            $table->decimal('display_points', 6, 2)->nullable();
+            $table->dateTime('issue_start')->nullable();
+            $table->dateTime('planned_end')->nullable();
             $table->unique(['local_id', 'project_id']);
         });
     }

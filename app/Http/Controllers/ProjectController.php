@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectBoard;
 use App\Models\ProjectMember;
 use App\Models\Role;
 use App\Services\ProjectPermissionService;
@@ -29,7 +30,13 @@ class ProjectController extends Controller
             'identification_name', $projectname)->first();
         $this->authorize('view', $project);
 
-        return view('project.project_view', ['project' => $project]);
+        $boardList = ProjectBoard::where('project_id', $project->id)
+            ->get();
+            
+        $this->authorize('viewAny', [ProjectBoard::class, $project->id]);
+
+        return view('project.project_view',
+            ['project' => $project, 'boardList' => $boardList]);
     }
 
     public function viewEdit($projectname = null)
@@ -74,7 +81,7 @@ class ProjectController extends Controller
             $project->identification_name = UniqueNameService::generateUniqueName(
                 Project::query(),
                 $req->input('name'),
-                []
+                ['project', 'board', 'layout', 'boardlayout']
             );
             $shouldCreate = true;
         }

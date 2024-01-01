@@ -4,8 +4,10 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\ProjectBoard;
+use App\Models\BoardLayout;
 use App\Policies\ProjectPolicy;
 use App\Policies\ProjectBoardPolicy;
+use App\Policies\BoardLayoutPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

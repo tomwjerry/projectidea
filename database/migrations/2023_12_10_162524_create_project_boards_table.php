@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
-            $table->foreignId('parent_board_id');
+            $table->foreignId('parent_board_id')->nullable();
             $table->string('name');
             $table->string('identification_name');
             $table->string('description')->nullable();

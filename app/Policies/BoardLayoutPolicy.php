@@ -2,10 +2,12 @@
 namespace App\Policies;
 
 use App\Models\Project;
-use App\Models\ProjectBoard;
+use App\Models\BoardLayout;
 use App\Models\User;
+use App\Models\GlobalPermission;
 use App\Services\ProjectPermissionService;
 use App\Services\Permission;
+use Illuminate\Auth\Access\Response;
 
 class ProjectBoardPolicy
 {
@@ -17,21 +19,21 @@ class ProjectBoardPolicy
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $projectId,
-            Permission::ProjectBoardList->value
+            $project_id,
+            Permission::BoardLayoutList->value
         );
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, ProjectBoard $board): bool
+    public function view(User $user, BoardLayout $layout): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $board->project_id,
-            Permission::ProjectBoardRead->value
+            $layout->project_id,
+            Permission::BoardLayoutRead->value
         );
     }
 
@@ -43,33 +45,33 @@ class ProjectBoardPolicy
         return ProjectPermissionService::userCanInProject(
             $user->id,
             $projectId,
-            Permission::ProjectBoardCreate->value
+            Permission::BoardLayoutCreate->value
         );
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ProjectBoard $board): bool
+    public function update(User $user, BoardLayout $layout): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $board->project_id,
-            Permission::ProjectBoardEdit->value
+            $layout->project_id,
+            Permission::BoardLayoutEdit->value
         );
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, ProjectBoard $board): bool
+    public function delete(User $user, BoardLayout $layout): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
             $user->id,
-            $board->project_id,
-            Permission::ProjectBoardDelete->value
+            $layout->project_id,
+            Permission::BoardLayoutDelete->value
         );
     }
 }
