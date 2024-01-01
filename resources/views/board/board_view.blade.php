@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container">
         <div id="board_name_field">
-            <div class="edit">
+            <div class="edit{{ empty($board->identification_name) ? '' : ' d-none' }}">
                 <form id="board_form" action="{{ route('board.post_edit') }}"
                     method="POST">
                     @csrf
@@ -27,6 +27,7 @@
             </div>
             <div class="view">
                 <h1>{{ $board->name }}</h1>
+                <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
                 <div>{{ $board->description }}</div>
             </div>
         </div>
@@ -35,7 +36,7 @@
             @foreach ($layoutItemList as $layoutIndex => $layoutItem)
                 <div class="mr-3 flex-grow">
                     <div id="layout_title_field">
-                        <div class="edit">
+                        <div class="edit d-none">
                             <form id="layout_form" action="{{ route('boardlayout.post_edit') }}"
                                 method="POST">
                                 @csrf
@@ -63,9 +64,11 @@
                             </form>
                         </div>
                         <div class="view">
-                            <h1>{{ $layoutItem->name }}</h1>
-                            @if ($layoutItem->is_new)
-                                <button type="button" class="btn">+</button>
+                            <h2>{{ $layoutItem->name }}</h2>
+                            @if (empty($layoutItem->local_id))
+                                <button type="button" class="btn toggle-edit">{{ __('common.new') }}</button>
+                            @else
+                                <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
                             @endif
                         </div>
                     </div>
@@ -73,4 +76,18 @@
             @endforeach
         </div>
     </div>
+
+    <x-slot:script>
+        <script>
+            const toggleBtns = 
+                document.querySelectorAll('.toggle-edit');
+            function toggleEdit(e) {
+                e.target.parentNode.parentNode.querySelector('.edit')
+                    .classList.toggle('d-none');
+            }
+            for (let btn of toggleBtns) {
+                btn.addEventListener('click', toggleEdit);
+            }
+        </script>
+    </x-slot:script>
 </x-app-layout>

@@ -10,8 +10,12 @@ html, body {
 }
 
 /* Colors */
-.input, .select, .textarea {
+.input, .select, .textarea, .btn {
     border-color: #000000;
+}
+
+.btn {
+    background-color: #ffffff;
 }
 
 /* Forms */
@@ -24,6 +28,10 @@ html, body {
 }
 
 /* Buttons */
+.btn {
+    border-style: solid;
+    cursor: pointer;
+}
 
 /* Margins, paddings */
 .mb-3 {
@@ -41,6 +49,10 @@ html, body {
 
 .layout.common.form {
     width: 60%;
+}
+
+.d-none {
+    display: none;
 }
 
 .flex {
