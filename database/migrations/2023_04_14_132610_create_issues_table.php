@@ -20,15 +20,16 @@ return new class extends Migration
             $table->foreignId('board_id');
             $table->boolean('is_epic');
             $table->foreignId('epic_id')->nullable();
+            $table->tinyInteger('status_position')->nullable();
+            $table->tinyInteger('status_lane')->nullable();
             $table->tinyInteger('prioritization');
-            $table->tinyInteger('progress');
             $table->string('color')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('display_points', 6, 2)->nullable();
             $table->dateTime('issue_start')->nullable();
             $table->dateTime('planned_end')->nullable();
-            $table->unique(['local_id', 'project_id']);
+            $table->unique(['local_id', 'board_id', 'project_id']);
         });
     }
 

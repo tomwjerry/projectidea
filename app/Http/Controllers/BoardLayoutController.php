@@ -24,7 +24,7 @@ class BoardLayoutController extends Controller
         if ($req->has('layout_localid') && !empty($req->input('layout_localid')))
         {
             $layout = BoardLayout::where(
-                'localid', $req->input('layout_localid')
+                'local_id', $req->input('layout_localid')
                 )
                 ->where('project_id', $project->id)
                 ->where('board_id', $board->id)
