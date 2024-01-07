@@ -96,8 +96,12 @@ class AdminController extends Controller
         }
         else
         {
+            $organization_id = 0;
             $role = new Role;
-            $role->organization_id = 0;
+            $role->organization_id = $organization_id;
+            $role->local_id = Role::where('organization_id', $organization_id)
+                ->max('local_id') + 1;
+            $role->project_admin_default = 0;
         }
         $role->name = $req->input('role_name');
         $role->description = $req->input('role_description');

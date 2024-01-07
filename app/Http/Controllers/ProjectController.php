@@ -78,6 +78,7 @@ class ProjectController extends Controller
         {
             $this->authorize('create', Project::class);
             $project = new Project;
+            $project->is_public = 0;
             $project->identification_name = UniqueNameService::generateUniqueName(
                 Project::query(),
                 $req->input('name'),

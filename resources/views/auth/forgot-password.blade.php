@@ -16,7 +16,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <button type="submit">
-                {{ __('Email Password Reset Link') }}
+                {{ __('auth.send_recovery_link') }}
             </button>
         </div>
     </form>

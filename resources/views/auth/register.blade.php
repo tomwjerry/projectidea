@@ -4,7 +4,7 @@
 
         <!-- Name -->
         <div>
-            <label for="name">{{ __('Name') }}</label>
+            <label for="name">{{ __('auth.name') }}</label>
             <input id="name" class="block mt-1 w-full" type="text" name="name"
                 :value="old('name')" required autofocus autocomplete="name">
             <p class="mt-2">{{ implode(', ', $errors->get('name')) }}</p>
@@ -20,7 +20,7 @@
 
         <!-- Email Address -->
         <div class="mt-4">
-            <label for="email">{{ __('Email') }}</label>
+            <label for="email">{{ __('auth.email') }}</label>
             <input id="email" class="block mt-1 w-full" type="email"
                 name="email" :value="old('email')" required autocomplete="username">
             <p class="mt-2">{{ implode(', ', $errors->get('email')) }}</p>
@@ -28,7 +28,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <label for="password">{{ __('Password') }}</label>
+            <label for="password">{{ __('auth.password') }}</label>
 
             <input id="password" class="block mt-1 w-full"
                 type="password"
@@ -40,7 +40,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <label for="password_confirmation">{{ __('Confirm Password') }}</label>
+            <label for="password_confirmation">{{ __('auth.confirm_password') }}</label>
 
             <input id="password_confirmation" class="block mt-1 w-full"
                 type="password"
@@ -51,11 +51,11 @@
 
         <div class="flex items-center justify-end mt-4">
             <a href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('auth.already_registered') }}
             </a>
 
             <button class="ml-4" type="submit">
-                {{ __('Register') }}
+                {{ __('auth.register') }}
             </button>
         </div>
     </form>

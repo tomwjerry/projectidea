@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('local_id');
             $table->timestamps();
             $table->boolean('project_admin_default');
+            $table->boolean('anonymous_default');
+            $table->boolean('loggedin_default');
             $table->foreignId('organization_id');
             $table->string('name');
             $table->string('description')->nullable();
