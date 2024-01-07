@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('local_id');
             $table->timestamps();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable(true);
             $table->foreignId('project_id');
             $table->foreignId('role_id');
+            $table->foreignId('organization_id');
+            $table->boolean('is_public_anon');
 
             $table->unique(['user_id', 'project_id']);
             $table->unique(['local_id', 'project_id']);

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth', 'can:superadmin')->group(function ()
+Route::middleware('auth', 'verified', 'can:superadmin')->group(function ()
 {
     Route::get('/admin', function () {
         return view('admin.admin_panel');
@@ -36,7 +36,7 @@ Route::middleware('auth', 'can:superadmin')->group(function ()
         ->name('admin.post_role');
 });
 
-Route::middleware('auth')->group(function ()
+Route::middleware('auth', 'verified')->group(function ()
 {
     Route::get('/dashboard',
         [MainDashboardController::class, 'viewMainDashboard'])
@@ -46,15 +46,11 @@ Route::middleware('auth')->group(function ()
         ->name('project.new');
     Route::get('/{projectname}/edit', [ProjectController::class, 'viewEdit'])
         ->name('project.edit');
-    Route::get('/{projectname}', [ProjectController::class, 'viewProject'])
-        ->name('project.project_view');
     Route::post('/project', [ProjectController::class, 'postEdit'])
         ->name('project.post_edit');
 
     Route::get('/{projectname}/board/new', [BoardController::class, 'viewBoard'])
         ->name('board.new');
-    Route::get('/{projectname}/{boardname}', [BoardController::class, 'viewBoard'])
-        ->name('board.view');
     Route::post('/board', [BoardController::class, 'postEdit'])
         ->name('board.post_edit');
     
@@ -62,4 +58,9 @@ Route::middleware('auth')->group(function ()
         ->name('boardlayout.post_edit');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/{projectname}', [ProjectController::class, 'viewProject'])
+    ->name('project.project_view');
+Route::get('/{projectname}/{boardname}', [BoardController::class, 'viewBoard'])
+    ->name('board.view');
+
+require __DIR__ . '/auth.php';

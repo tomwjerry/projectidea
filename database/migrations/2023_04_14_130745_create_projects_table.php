@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table)
+        {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('organization_id');
             $table->foreignId('parent_project_id')->nullable();
+            $table->boolean('is_public');
             $table->string('identification_name')->unique();
             $table->string('name');
             $table->text('description')->nullable();
