@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('role_id');
             $table->foreignId('organization_id');
             $table->boolean('is_public_anon');
+            $table->boolean('is_public_loggedin');
 
             $table->unique(['user_id', 'project_id']);
             $table->unique(['local_id', 'project_id']);

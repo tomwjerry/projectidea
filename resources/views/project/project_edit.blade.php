@@ -30,6 +30,9 @@
                 </select>
             </div>
 
+            <div class="mb-3">
+            </div>
+
             <button type="submit" class="btn primary">{{ __('common.save') }}</button>
         </form>
     </div>

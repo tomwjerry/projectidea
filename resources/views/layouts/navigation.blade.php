@@ -2,7 +2,7 @@
     <div>
         <div class="">
             <a href="{{ route('dashboard') }}">
-                {{ __('Dashboard') }}
+                {{ __('common.dashboard') }}
             </a>
         </div>
 

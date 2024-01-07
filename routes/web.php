@@ -1,9 +1,10 @@
 <?php
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\BoardLayoutController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\MainDashboardController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\WelcomeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -58,9 +59,11 @@ Route::middleware('auth', 'verified')->group(function ()
         ->name('boardlayout.post_edit');
 });
 
+require __DIR__ . '/auth.php';
+
+Route::get('/', [WelcomeController::class, 'viewWelcome'])
+    ->name('welcome');
 Route::get('/{projectname}', [ProjectController::class, 'viewProject'])
     ->name('project.project_view');
 Route::get('/{projectname}/{boardname}', [BoardController::class, 'viewBoard'])
     ->name('board.view');
-
-require __DIR__ . '/auth.php';

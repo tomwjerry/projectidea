@@ -8,6 +8,20 @@
         <title>{{ config('app.name') }}</title>
     </head>
     <body>
-        {{ $slot }}
+        <div class="nav-wrap">
+            <nav>
+                <div>
+                    <div class="">
+                        <a href="{{ route('dashboard') }}">
+                            {{ __('common.login') }}
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
     </body>
 </html>

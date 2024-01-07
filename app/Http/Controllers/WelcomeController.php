@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
-    public function viewMainDashboard()
+    public function viewWelcome()
     {
         $projectIds = ProjectPermissionService::projectsByPermission(
             Auth::id(),
@@ -18,6 +18,6 @@ class WelcomeController extends Controller
             ->whereIn('id', $projectIds)
             ->get();
 
-        return view('welcome', ['projects' => $allProjects]);
+        return view('welcome', ['publicProjects' => $allProjects]);
     }
 }

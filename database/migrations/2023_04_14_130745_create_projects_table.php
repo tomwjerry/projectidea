@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('organization_id');
             $table->foreignId('parent_project_id')->nullable();
             $table->boolean('is_public');
+            $table->boolean('is_loggedin_public');
             $table->string('identification_name')->unique();
             $table->string('name');
             $table->text('description')->nullable();

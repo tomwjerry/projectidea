@@ -22,7 +22,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('welcome');
+        return view('auth.login');
     }
 
     /**
