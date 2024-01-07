@@ -8,20 +8,18 @@
 
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
+            <label for="password">{{ __('auth.password')" }}</label>
 
-            <x-text-input id="password" class=""
+            <input id="password" class=""
                 type="password"
                 name="password"
-                required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="" />
+                required autocomplete="current-password">
         </div>
 
         <div class="">
-            <x-primary-button>
+            <button type="submit">
                 {{ __('Confirm') }}
-            </x-primary-button>
+            </button>
         </div>
     </form>
 </x-guest-layout>
