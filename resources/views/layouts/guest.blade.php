@@ -6,6 +6,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name') }}</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('public/style.css') }}">
     </head>
     <body>
         <div class="nav-wrap">

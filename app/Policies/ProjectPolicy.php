@@ -22,11 +22,11 @@ class ProjectPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Project $project): bool
+    public function view(?User $user, Project $project): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
-            $user->id,
+            $user->id ?? null,
             $project->id,
             Permission::ProjectRead->value
         );

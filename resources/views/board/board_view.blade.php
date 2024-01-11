@@ -27,7 +27,9 @@
             </div>
             <div class="view">
                 <h1>{{ $board->name }}</h1>
-                <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
+                @can('update', $board)
+                    <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
+                @endcan
                 <div>{{ $board->description }}</div>
             </div>
         </div>
@@ -66,9 +68,13 @@
                         <div class="view">
                             <h2>{{ $layoutItem->name }}</h2>
                             @if (empty($layoutItem->local_id))
-                                <button type="button" class="btn toggle-edit">{{ __('common.new') }}</button>
+                                @can('create', [App\Models\BoardLayout::class, $project->id])
+                                    <button type="button" class="btn toggle-edit">{{ __('common.new') }}</button>
+                                @endcan
                             @else
-                                <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
+                                @can('update', $layoutItem)
+                                    <button type="button" class="btn toggle-edit">{{ __('common.edit') }}</button>
+                                @endcan
                             @endif
                         </div>
                     </div>

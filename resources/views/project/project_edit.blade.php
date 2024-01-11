@@ -21,9 +21,19 @@
             </div>
 
             <div class="mb-3">
-                <label for="initial_role">{{ __('project.project_name') }}</label>
+                <label for="initial_role">{{ __('project.role_admin') }}</label>
                 <select class="select" name="initial_role"
                     id="initial_role">
+                    @foreach ($roles as $role):
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="initial_anon_role">{{ __('project.role_anon') }}</label>
+                <select class="select" name="initial_anon_role"
+                    id="initial_anon_role">
                     @foreach ($roles as $role):
                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach

@@ -68,9 +68,9 @@ class BoardController extends Controller
             $board = new ProjectBoard;
             $board->project_id = $project->id;
             $board->parent_board_id = 0;
-            $board->identification_name = UniqueNameService::generateUniqueName(
-                ProjectBoard::where('project_id', $board->project_id)
-                    ->query(),
+            $board->identification_name =
+                UniqueNameService::generateUniqueName(
+                ProjectBoard::where('project_id', $board->project_id),
                 $req->input('board_name'),
                 ['project', 'board', 'layout', 'boardlayout']
             );

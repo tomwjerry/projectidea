@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->foreignId('role_id');
             $table->foreignId('organization_id');
+            $table->string('invitation_token')->nullable(true);
+            $table->string('invitation_email')->nullable(true);
+            $table->boolean('is_invitation');
             $table->boolean('is_public_anon');
             $table->boolean('is_public_loggedin');
 

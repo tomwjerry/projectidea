@@ -22,6 +22,12 @@ enum Permission: int
     case IssueEdit = 44;
     case IssueDelete = 45;
 
+    case IssueCommentList = 61;
+    case IssueCommentRead = 62;
+    case IssueCommentCreate = 63;
+    case IssueCommentEdit = 64;
+    case IssueCommentDelete = 65;
+
     case ProjectBoardList = 81;
     case ProjectBoardRead = 82;
     case ProjectBoardCreate = 83;

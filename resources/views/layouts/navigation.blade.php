@@ -9,7 +9,7 @@
         <!-- Responsive Settings Options -->
         <div class="">
             <div class="">
-                <div class="">{{ Auth::user()->name }}</div>
+                <div class="">{{ Auth::user()->name ?? '' }}</div>
             </div>
 
             <div class="">

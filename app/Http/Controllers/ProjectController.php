@@ -65,6 +65,7 @@ class ProjectController extends Controller
 
     public function postEdit(Request $req)
     {
+        $isPublic = 0;
         $shouldCreate = false;
         $project = null;
         if ($req->has('identification_name') ||
@@ -78,7 +79,7 @@ class ProjectController extends Controller
         {
             $this->authorize('create', Project::class);
             $project = new Project;
-            $project->is_public = 0;
+            $project->is_public = $isPublic;
             $project->identification_name = UniqueNameService::generateUniqueName(
                 Project::query(),
                 $req->input('name'),
@@ -103,9 +104,27 @@ class ProjectController extends Controller
             $member->project_id = $project->id;
             $member->user_id = Auth::id();
             $member->role_id = $findRole->id;
-            $member->local_id = ProjectMember::where('project_id', $project->id)
+            $member->is_public_anon = 0;
+            $member->local_id =
+                ProjectMember::where('project_id', $project->id)
                 ->count();
             $member->save();
+
+            if ($isPublic == 1)
+            {
+                $findAnonRole =
+                    Role::where('id', $req->input('initial_anon_role'))->first();
+
+                $member = new ProjectMember;
+                $member->project_id = $project->id;
+                $member->user_id = null;
+                $member->role_id = $findAnonRole->id;
+                $member->is_public_anon = 1;
+                $member->local_id =
+                    ProjectMember::where('project_id', $project->id)
+                    ->count();
+                $member->save();
+            }
         }
 
         return redirect()->route('project.project_view', [

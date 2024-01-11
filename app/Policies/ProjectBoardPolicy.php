@@ -12,11 +12,11 @@ class ProjectBoardPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user, $projectId): bool
+    public function viewAny(?User $user, $projectId): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
-            $user->id,
+            $user->id ?? null,
             $projectId,
             Permission::ProjectBoardList->value
         );
@@ -25,11 +25,11 @@ class ProjectBoardPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, ProjectBoard $board): bool
+    public function view(?User $user, ProjectBoard $board): bool
     {
         //
         return ProjectPermissionService::userCanInProject(
-            $user->id,
+            $user->id ?? null,
             $board->project_id,
             Permission::ProjectBoardRead->value
         );
