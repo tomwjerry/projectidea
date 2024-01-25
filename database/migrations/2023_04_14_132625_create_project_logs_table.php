@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_logs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('local_id');
             $table->timestamps();
             $table->foreignId('project_id');
             $table->foreignId('member_id');

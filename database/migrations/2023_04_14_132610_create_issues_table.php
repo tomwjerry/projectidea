@@ -29,6 +29,9 @@ return new class extends Migration
             $table->decimal('display_points', 6, 2)->nullable();
             $table->dateTime('issue_start')->nullable();
             $table->dateTime('planned_end')->nullable();
+            $table->integer('revision_nr')->nullable(true);
+            $table->foreignId('for_revision')->nullable(true);
+            $table->datetime('autosave_at')->nullable(true);
             $table->unique(['local_id', 'board_id', 'project_id']);
         });
     }

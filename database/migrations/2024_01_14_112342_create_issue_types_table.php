@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_boards', function (Blueprint $table)
+        Schema::create('issue_types', function (Blueprint $table)
         {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
-            $table->foreignId('parent_board_id')->nullable();
+            $table->foreignId('parent_id')->nullable(true);
             $table->string('name');
             $table->string('identification_name');
-            $table->string('description')->nullable();
+            $table->string('description')->nullable(true);
+            $table->boolean('hidden');
             $table->unique(['identification_name', 'project_id']);
         });
     }

@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,17 +10,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_boards', function (Blueprint $table)
+        Schema::create('issue_comments', function (Blueprint $table)
         {
             $table->id();
+            $table->unsignedBigInteger('local_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('project_id');
-            $table->foreignId('parent_board_id')->nullable();
-            $table->string('name');
-            $table->string('identification_name');
-            $table->string('description')->nullable();
-            $table->unique(['identification_name', 'project_id']);
+            $table->foreignId('issue_id');
+            $table->foreignId('user_id');
+            $table->string('user_comment')->nullable(true);
+            $table->unique(['local_id', 'issue_id']);
         });
     }
 
