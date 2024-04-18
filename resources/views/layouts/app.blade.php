@@ -10,7 +10,7 @@
         <!-- Fonts -->
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('public/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
     </head>
     <body>
         <div class="nav-wrap">
