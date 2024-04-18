@@ -1,5 +1,9 @@
 <?php
 return [
     'login' => 'Log in',
-    'dashboard' => 'Dashboard'
+    'dashboard' => 'Dashboard',
+    'save' => 'Spara',
+    'description' => 'Beskrivning',
+    'new' => 'Ny',
+    'edit' => 'Redigera'
 ];

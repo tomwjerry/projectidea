@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->foreignId('issue_id');
             $table->foreignId('user_id');
-            $table->string('user_comment')->nullable(true);
+            $table->string('user_comment')->nullable(false);
             $table->unique(['local_id', 'issue_id']);
         });
     }
